@@ -813,18 +813,14 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // Page Navigation
         function showPage(pageName) {
-            // Hide all pages
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => {
                 page.style.display = 'none';
             });
 
-            // Show selected page
             document.getElementById(pageName + '-page').style.display = 'block';
 
-            // Update active nav link
             const navLinks = document.querySelectorAll('.nav-links a');
             navLinks.forEach(link => {
                 link.classList.remove('active');
@@ -833,20 +829,16 @@
                 }
             });
 
-            // Close mobile menu
             document.getElementById('navLinks').classList.remove('active');
 
-            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Mobile menu toggle
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('active');
         }
 
-        // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
@@ -861,7 +853,6 @@
             });
         }, observerOptions);
 
-        // Observe elements for animation
         setTimeout(() => {
             document.querySelectorAll('.glass-card, .committee-card').forEach(el => {
                 el.style.opacity = '0';
@@ -872,4 +863,5 @@
         }, 100);
     </script>
 </body>
+
 </html>
