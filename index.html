@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FWSMUN - Future World School Model United Nations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #1a2942 50%, #0d1b2a 100%);
+            color: #e8eef5;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(76, 132, 196, 0.15) 0%, rgba(76, 132, 196, 0) 70%);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .bg-circle:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            top: -200px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .bg-circle:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            bottom: -150px;
+            right: -150px;
+            animation-delay: 7s;
+        }
+
+        .bg-circle:nth-child(3) {
+            width: 500px;
+            height: 500px;
+            top: 50%;
+            right: -250px;
+            animation-delay: 14s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 30px) scale(0.9); }
+        }
+
+        /* Navigation Bar */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .nav-container {
+            background: rgba(10, 22, 40, 0.7);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(76, 132, 196, 0.3);
+            border-radius: 30px;
+            padding: 0px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            width: 100%;
+            min-height: 90px;
+        }
+
+        .logo-placeholder {
+            width: 80px;
+            height: 100px;
+            background: transparent;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            margin: 0;
+        }
+
+        .nav-links a {
+            color: #e8eef5;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4c84c4;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: #4c84c4;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #e8eef5;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        /* Page Container */
+        .page-container {
+            padding-top: 120px;
+            min-height: 100vh;
+        }
+
+        .content-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: calc(100vh - 120px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #4c84c4 0%, #7ba3cc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease;
+            letter-spacing: 3px;
+        }
+
+        .hero-year {
+            font-size: 2rem;
+            color: #7ba3cc;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease 0.1s backwards;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: #b8c9db;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .hero-details {
+            background: rgba(76, 132, 196, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 132, 196, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        .hero-details p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            color: #d4e1f0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #4c84c4 0%, #3a6ba0 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            animation: fadeInUp 1s ease 0.6s backwards;
+            box-shadow: 0 10px 30px rgba(76, 132, 196, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(76, 132, 196, 0.5);
+        }
+
+        .countdown {
+            margin-top: 40px;
+            animation: fadeInUp 1s ease 0.8s backwards;
+        }
+
+        .countdown-title {
+            font-size: 1.2rem;
+            color: #b8c9db;
+            margin-bottom: 20px;
+        }
+
+        .countdown-timer {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .time-unit {
+            background: rgba(76, 132, 196, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 132, 196, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 100px;
+        }
+
+        .time-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4c84c4;
+        }
+
+        .time-label {
+            font-size: 0.9rem;
+            color: #b8c9db;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #4c84c4;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .glass-card {
+            background: rgba(76, 132, 196, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 132, 196, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(76, 132, 196, 0.2);
+            border-color: rgba(76, 132, 196, 0.5);
+        }
+
+        .about-text h3 {
+            color: #4c84c4;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .about-text p {
+            line-height: 1.8;
+            color: #d4e1f0;
+            margin-bottom: 20px;
+        }
+
+        .glass-card h3 {
+            color: #4c84c4;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .glass-card p {
+            color: #d4e1f0;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* Page Content Styles */
+        .page-content {
+            padding: 60px 0;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: #4c84c4;
+            margin-bottom: 20px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: #b8c9db;
+        }
+
+        /* Committees Grid */
+        .committees-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .committee-card {
+            background: rgba(76, 132, 196, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 132, 196, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+
+        .committee-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(76, 132, 196, 0.6);
+            box-shadow: 0 15px 35px rgba(76, 132, 196, 0.2);
+        }
+
+        .committee-card h3 {
+            color: #4c84c4;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .committee-card .agenda-label {
+            color: #7ba3cc;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .committee-card p {
+            color: #d4e1f0;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(76, 132, 196, 0.2);
+            border: 1px solid rgba(76, 132, 196, 0.4);
+            border-radius: 10px;
+            color: #4c84c4;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .download-btn:hover {
+            background: rgba(76, 132, 196, 0.3);
+            transform: translateX(5px);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 22, 40, 0.8);
+            padding: 40px 5%;
+            text-align: center;
+            border-top: 1px solid rgba(76, 132, 196, 0.2);
+            margin-top: 80px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            color: #4c84c4;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #7ba3cc;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            nav {
+                width: 90%;
+                max-width: 1200px;
+            }
+
+            .nav-container {
+                padding: 15px 30px;
+                justify-content: center;
+                position: relative;
+                width: 100%;
+            }
+
+            .logo-placeholder {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .menu-toggle {
+                position: absolute;
+                right: 30px;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 22, 40, 0.98);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                border-radius: 20px;
+                margin-top: 10px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-year {
+                font-size: 1.5rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .committees-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+    </div>
+
+    <nav>
+        <div class="nav-container">
+            <img src="logo.png" alt="FWS MUN Logo" class="logo-placeholder">            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" onclick="showPage('home')" class="active" data-page="home">Home</a></li>
+                <li><a href="#" onclick="showPage('committees')" data-page="committees">Committees</a></li>
+                <li><a href="#" onclick="showPage('registration')" data-page="registration">Registration</a></li>
+                <li><a href="#" onclick="showPage('resources')" data-page="resources">Resources & Info</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-container">
+        <!-- HOME PAGE -->
+        <div id="home-page" class="page active-page">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>FWS MUN II</h1>
+                    <div class="hero-year">2025</div>
+                    <p class="tagline">Empowering Voices. Building Diplomacy.</p>
+                    
+                    <div class="hero-details">
+                        <p><strong>📅 Date:</strong> November 21-23, 2025</p>
+                        <p><strong>📍 Location:</strong> Future World School, Bahria Town Karachi</p>
+                    </div>
+
+                    <a href="#" onclick="showPage('registration')" class="cta-button">Register Now</a>
+
+                    <div class="countdown">
+                        <p class="countdown-title">Conference Countdown</p>
+                        <div class="countdown-timer" id="countdown">
+                            <div class="time-unit">
+                                <div class="time-value" id="days">00</div>
+                                <div class="time-label">Days</div>
+                            </div>
+                            <div class="time-unit">
+                                <div class="time-value" id="hours">00</div>
+                                <div class="time-label">Hours</div>
+                            </div>
+                            <div class="time-unit">
+                                <div class="time-value" id="minutes">00</div>
+                                <div class="time-label">Minutes</div>
+                            </div>
+                            <div class="time-unit">
+                                <div class="time-value" id="seconds">00</div>
+                                <div class="time-label">Seconds</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-wrapper">
+                <div class="about-section">
+                    <h2 class="section-title">About FWSMUN</h2>
+                    <div class="about-content">
+                        <div class="about-text">
+                            <h3>Our Mission</h3>
+                            <p>FWSMUN is Future World School's premier Model United Nations conference, dedicated to fostering diplomatic skills, critical thinking, and global awareness among students. Our conference provides a platform for young leaders to engage with pressing international issues and develop solutions through collaborative debate.</p>
+                            <p>In its second iteration, FWSMUN has grown into one of the region's most respected MUN conferences, attracting delegates from schools across the country. We pride ourselves on maintaining the highest standards of academic rigor while creating an inclusive and supportive environment for all participants.</p>
+                        </div>
+                        <div class="glass-card">
+                            <h3>Conference Highlights</h3>
+                            <p>✓ 5 diverse committees covering critical global issues</p>
+                            <p>✓ Expert chairs and crisis team</p>
+                            <p>✓ Professional secretariat and logistics support</p>                            <p>✓ Awards ceremony recognizing outstanding delegates</p>
+                            <p>✓ Social events and food stalls</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMMITTEES PAGE -->
+        <div id="committees-page" class="page" style="display: none;">
+            <div class="content-wrapper">
+                <div class="page-content">
+                    <div class="page-header">
+                        <h1>Our Committees</h1>
+                        <p>Explore our diverse range of committees and their topics for FWS MUN II 2025</p>
+                    </div>
+
+                    <div class="committees-grid">
+                        <div class="committee-card">
+                            <h3>👥 UNCSW - UN Commission on the Status of Women</h3>
+                            <p class="agenda-label">Agenda</p>
+                            <p><strong>Addressing Gender Based Violence and Ensuring Accountability in Conflict and Post-Conflict Zones</strong></p>
+                            <p>The commission will examine the systemic challenges of gender-based violence in areas affected by armed conflict, exploring mechanisms for prevention, protection of survivors, and ensuring accountability for perpetrators in both conflict and post-conflict settings.</p>
+                            <a href="#" class="download-btn">📄 Download Study Guide</a>
+                        </div>
+
+                        <div class="committee-card">
+                            <h3>⚡ Harry Potter Committee</h3>
+                            <p class="agenda-label">Rolling Crisis</p>
+                            <p><strong>The Order of the Phoenix and the Fall of the Ministry of Magic</strong></p>
+                            <p>Step into the wizarding world during its darkest hour. Delegates will navigate the complex political landscape as the Ministry of Magic crumbles and the Order of the Phoenix rises to resist Voldemort's return. Make critical decisions that will shape the fate of the magical community.</p>
+                            <a href="#" class="download-btn">📄 Download Study Guide</a>
+                        </div>
+
+                        <div class="committee-card">
+                            <h3>🇵🇰 PNA - Pakistan National Assembly</h3>
+                            <p class="agenda-label">Agenda</p>
+                            <p><strong>Strengthening Judicial and Law Enforcement Reforms to Enhance Transparency and Combat Crime in Pakistan</strong></p>
+                            <p>The National Assembly will address critical reforms needed in Pakistan's judicial system and law enforcement agencies, focusing on improving transparency, accountability, and effectiveness in combating crime while protecting citizens' rights.</p>
+                            <a href="#" class="download-btn">📄 Download Study Guide</a>
+                        </div>
+
+                        <div class="committee-card">
+                            <h3>🛡️ UNSC - United Nations Security Council</h3>
+                            <p class="agenda-label">Rolling Crisis</p>
+                            <p><strong>The Escalating Power Struggle and Humanitarian Breakdown in Sudan</strong></p>
+                            <p>The Security Council faces an urgent humanitarian crisis as Sudan's power struggle intensifies. Delegates must navigate complex geopolitical interests while addressing civilian protection, humanitarian access, and potential pathways to peace in this evolving crisis.</p>
+                            <a href="#" class="download-btn">📄 Download Study Guide</a>
+                        </div>
+
+                        <div class="committee-card">
+                            <h3>🌐 DISEC - Disarmament and International Security</h3>
+                            <p class="agenda-label">Agenda</p>
+                            <p><strong>Strengthening International Mechanisms for the Regulation of Small Arms and Light Weapons (SALW) Trade</strong></p>
+                            <p>DISEC will address the proliferation of small arms and light weapons, examining current regulatory frameworks and developing comprehensive strategies to prevent illicit trade, improve tracking systems, and enhance international cooperation in arms control.</p>
+                            <a href="#" class="download-btn">📄 Download Study Guide</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- REGISTRATION PAGE -->
+        <div id="registration-page" class="page" style="display: none;">
+            <div class="content-wrapper">
+                <div class="page-content">
+                    <div class="page-header">
+                        <h1>Registration</h1>
+                        <p>Join us at FWS MUN II 2025 - Register your delegation today</p>
+                    </div>
+
+                    <div class="glass-card" style="margin-bottom: 30px;">
+                        <h3>Delegate Registration</h3>
+                        <p><strong>Registration Fee:</strong> 4200 PKR per delegate</p>
+                        <p><strong>Early Bird Deadline:</strong> November 9, 2025 (3800PKR per delegate)</p>
+                        <p><strong>Regular Deadline:</strong> November 19, 2025</p>
+                        <br>
+                        <p><strong>What's Included:</strong></p>
+                        <p>• All committee sessions and materials</p>
+                        <p>• Certificate of participation</p>
+                        <p>• Access to social events</p>
+                        <p>• Eligibility for awards and recognition</p>
+                        <br>
+                        <a href="#" class="cta-button">Complete Registration Form</a>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- RESOURCES & INFO PAGE -->
+        <div id="resources-page" class="page" style="display: none;">
+            <div class="content-wrapper">
+                <div class="page-content">
+                    <div class="page-header">
+                        <h1>Resources & Conference Information</h1>
+                        <p>Everything you need to prepare for FWS MUN II 2025</p>
+                    </div>
+
+                    <h2 class="section-title">Delegate Resources</h2>
+                    
+                    <div class="glass-card" style="margin-bottom: 40px;">
+                        <h3>📚 Essential Documents</h3>
+                        <p><a href="#" class="download-btn">Delegate Handbook</a></p>
+                        <p><a href="#" class="download-btn">Position Paper Guidelines</a></p>
+                        <p><a href="#" class="download-btn">Sample Resolutions</a></p>
+                        <p><a href="#" class="download-btn">Research Tips & Resources</a></p>
+                        <p><a href="#" class="download-btn">Rules of Procedure</a></p>
+                    </div>
+
+
+                    <h2 class="section-title">Conference Information</h2>
+
+                    <div class="glass-card" style="margin-bottom: 30px;">
+                        <h3>📍 Venue & Schedule</h3>
+                        <p><strong>Location:</strong> Future World School, Precinct 1 Bahria Town Karachi, Karachi, 75340</p>
+                        <br>
+                        <p><strong>Conference Schedule:</strong></p>
+                        <p><strong>Day 1 (November 21, 2025):</strong></p>
+                        <p>• 8:00 AM - Registration & Check-in</p>
+                        <p>• 9:00 AM - Opening Ceremony</p>
+                        <p>• 11:00 AM - Committee Session 1</p>
+                        <p>• 1:00 PM - Lunch Break</p>
+                        <p>• 2:30 PM - Committee Session 2</p>
+                        <p>• 5:00 PM - Day 1 Adjournment</p>
+                        <br>
+                        <p><strong>Day 2 (November 22, 2025):</strong></p>
+                        <p>• 9:00 AM - Committee Session 3</p>
+                        <p>• 12:00 PM - Lunch Break</p>
+                        <p>• 1:30 PM - Committee Session 4</p>
+                        <p>• 4:00 PM - Session Break</p>
+                        <p>• 6:00 PM - Social Event & Cultural Night</p>
+                        <br>
+                        <p><strong>Day 3 (November 23, 2025):</strong></p>
+                        <p>• 9:00 AM - Final Committee Session</p>
+                        <p>• 12:00 PM - Lunch Break</p>
+                        <p>• 1:30 PM - Closing Ceremony</p>
+                        <p>• 3:00 PM - Awards & Recognition</p>
+                        <p>• 4:00 PM - Conference Conclusion</p>
+                    </div>
+
+                    <div class="glass-card" style="margin-bottom: 30px;">
+                        <h3>👔 Dress Code</h3>
+                        <p><strong>Formal Western Business Attire:</strong></p>
+                        <p>• Suits, blazers, dress shirts, and ties for all committee sessions</p>
+                        <p>• Professional dresses, pantsuits, or business formal attire</p>
+                        <p>• Closed-toe formal shoes</p>
+                        <p>• Conservative colors and professional appearance</p>
+                        <br>
+                        <p><strong>Traditional Formal Attire:</strong></p>
+                        <p>• National or cultural formal dress is acceptable for Pakistan National Assembly</p>
+                        <p>• Must maintain professional and diplomatic appearance</p>
+                        <br>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3>📋 Rules & Code of Conduct</h3>
+                        <p>All delegates must adhere to standard UN Rules of Procedure throughout the conference. A comprehensive procedural guide will be provided upon registration.</p>
+                        <br>
+                        <p><strong>Code of Conduct:</strong></p>
+                        <p>• Maintain respect and diplomatic decorum at all times</p>
+                        <p>• No offensive language, discrimination, or harassment</p>
+                        <p>• Follow chair instructions and parliamentary procedure</p>
+                        <p>• Violations may result in removal from committee</p>
+                        <br>
+                        <p><strong>Academic Integrity:</strong></p>
+                        <p>• All position papers and research must be original work</p>
+                        <p>• Plagiarism will be met with consequence</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-links">
+            <a href="#" title="Instagram">📷</a>
+            <a href="#" title="Email">💼</a>
+        </div>
+        <p>&copy; 2025 FWSMUN - Future World School Model United Nations. All rights reserved.</p>
+        <p>Empowering the next generation of global leaders.</p>
+    </footer>
+
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const conferenceDate = new Date('November 21, 2025 09:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = conferenceDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Page Navigation
+        function showPage(pageName) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.style.display = 'none';
+            });
+
+            // Show selected page
+            document.getElementById(pageName + '-page').style.display = 'block';
+
+            // Update active nav link
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageName) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Close mobile menu
+            document.getElementById('navLinks').classList.remove('active');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        setTimeout(() => {
+            document.querySelectorAll('.glass-card, .committee-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.6s ease';
+                observer.observe(el);
+            });
+        }, 100);
+    </script>
+</body>
+</html>
