@@ -444,9 +444,23 @@
 
         .social-links {
             display: flex;
-            gap: 20px;
+            gap: 40px;
             justify-content: center;
             margin-bottom: 20px;
+
+        }
+
+        .social-links .icon {
+            width: 28px;
+            height: 28px;
+            display: inline-block;
+            filter: invert(1);
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .social-links .icon:hover {
+            transform: scale(1.15);
+            opacity: 0.8;
         }
 
         .social-links a {
@@ -454,12 +468,8 @@
             font-size: 1.5rem;
             transition: color 0.3s;
         }
-
-        .social-links a:hover {
-            color: #7ba3cc;
-        }
-
-        /* Responsive */
+        
+       
         @media (max-width: 968px) {
             nav {
                 width: 90%;
@@ -691,7 +701,8 @@
                         <p>• Access to social events at a discounted price</p>
                         <p>• Eligibility for awards and recognition</p>
                         <br>
-                        <a href="#" class="cta-button">Complete Registration Form</a>
+                        <a href="https://forms.gle/55ierzhGx7dj4H1p9" target="_blank" class="cta-button">Complete
+                            Registration Form</a>
                     </div>
                     
                     
@@ -711,8 +722,9 @@
                         <p>• Delegation of 6 – PKR 26,800</p>
                         <p>• Delegation of 7 – PKR 30,600</p>
                         <br>
-                        <a href="#" class="cta-button">Register as Delegation</a>
-                    </div>
+                        <a href="https://forms.gle/aUrDSKfrkwdk9RxC9" target="_blank" class="cta-button">Register as
+                            Delegation</a>
+                </div>
                 </div>
             </div>
         </div>
@@ -804,8 +816,12 @@
 
     <footer>
         <div class="social-links">
-            <a href="#" title="Instagram">📷</a>
-            <a href="#" title="Email">💼</a>
+            <a href="https://instagram.com/fws.mun/" target="_blank" title="Instagram">
+                <img src="instagram.svg" alt="Instagram" class="icon">
+            </a>
+            <a href="mailto:" title="Email">
+                <img src="email.svg" alt="Email" class="icon">
+            </a>
         </div>
         <p>&copy; 2025 FWSMUN - Future World School Model United Nations. All rights reserved.</p>
         <p>Empowering the next generation of global leaders.</p>
@@ -884,6 +900,7 @@
 </body>
 
 </html>
+
 
 
 
