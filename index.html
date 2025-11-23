@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FWSMUN - Future World School Model United Nations</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <style>
         * {
             margin: 0;
@@ -19,7 +21,7 @@
             min-height: 100vh;
         }
 
-        /* animated Background */
+        /* Animated Background */
         .bg-animation {
             position: fixed;
             width: 100%;
@@ -62,9 +64,19 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -50px) scale(1.1); }
-            66% { transform: translate(-20px, 30px) scale(0.9); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 30px) scale(0.9);
+            }
         }
 
         /* Navigation Bar */
@@ -105,6 +117,7 @@
             color: white;
             font-size: 1.3rem;
             flex-shrink: 0;
+            cursor: pointer;
         }
 
         .nav-links {
@@ -288,6 +301,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -433,7 +447,7 @@
             transform: translateX(5px);
         }
 
-        /* Footer */
+        /* footer */
         footer {
             background: rgba(10, 22, 40, 0.8);
             padding: 40px 5%;
@@ -468,8 +482,10 @@
             font-size: 1.5rem;
             transition: color 0.3s;
         }
-        
-       
+
+
+
+
         @media (max-width: 968px) {
             nav {
                 width: 90%;
@@ -540,8 +556,89 @@
                 font-size: 2rem;
             }
         }
+
+        /* Credit Popup */
+        .credit-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(76, 132, 196, 0.4);
+            border-radius: 20px;
+            padding: 40px 50px;
+            z-index: 2000;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 300px;
+        }
+
+        .credit-popup.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: all;
+        }
+
+        .credit-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .credit-popup-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .credit-popup h3 {
+            color: #4c84c4;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .credit-popup p {
+            color: #d4e1f0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            background: rgba(76, 132, 196, 0.2);
+            border: 1px solid rgba(76, 132, 196, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #4c84c4;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .close-popup:hover {
+            background: rgba(76, 132, 196, 0.3);
+            transform: rotate(90deg);
+        }
     </style>
 </head>
+
 <body>
     <div class="bg-animation">
         <div class="bg-circle"></div>
@@ -551,7 +648,8 @@
 
     <nav>
         <div class="nav-container">
-            <img src="logo.png" alt="FWS MUN Logo" class="logo-placeholder">            <div class="menu-toggle" onclick="toggleMenu()">
+            <img src="logo.png" alt="FWS MUN Logo" class="logo-placeholder" onclick="showCreditPopup()">
+            <div class="menu-toggle" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -564,18 +662,25 @@
             </ul>
         </div>
     </nav>
+    <!-- Credit Popup -->
+    <div class="credit-popup-overlay" id="creditOverlay" onclick="closeCreditPopup()"></div>
+    <div class="credit-popup" id="creditPopup">
+        <div class="close-popup" onclick="closeCreditPopup()">×</div>
+        <h3>Website Credits</h3>
+        <p>Website coded and designed with ❤️ by<br><strong>Ayan Ali Khan</strong></p>
+    </div>
 
     <div class="page-container">
         <!-- HOME PAGE -->
         <div id="home-page" class="page active-page">
             <div class="hero">
                 <div class="hero-content">
-                    <h1>FWS MUN II</h1>
-                    <div class="hero-year">2025</div>
+                    <h1>FWS MUN III</h1>
+                    <div class="hero-year">2026</div>
                     <p class="tagline">Empowering Voices. Building Diplomacy.</p>
-                    
+
                     <div class="hero-details">
-                        <p><strong>📅 Date:</strong> November 21-23, 2025</p>
+                        <p><strong>📅 Date:</strong> ?? - ??, ????</p>
                         <p><strong>📍 Location:</strong> Future World School, Bahria Town Karachi</p>
                     </div>
 
@@ -585,19 +690,19 @@
                         <p class="countdown-title">Conference Countdown</p>
                         <div class="countdown-timer" id="countdown">
                             <div class="time-unit">
-                                <div class="time-value" id="days">00</div>
+                                <div class="time-value" id="days">??</div>
                                 <div class="time-label">Days</div>
                             </div>
                             <div class="time-unit">
-                                <div class="time-value" id="hours">00</div>
+                                <div class="time-value" id="hours">??</div>
                                 <div class="time-label">Hours</div>
                             </div>
                             <div class="time-unit">
-                                <div class="time-value" id="minutes">00</div>
+                                <div class="time-value" id="minutes">??</div>
                                 <div class="time-label">Minutes</div>
                             </div>
                             <div class="time-unit">
-                                <div class="time-value" id="seconds">00</div>
+                                <div class="time-value" id="seconds">??</div>
                                 <div class="time-label">Seconds</div>
                             </div>
                         </div>
@@ -611,14 +716,21 @@
                     <div class="about-content">
                         <div class="about-text">
                             <h3>Our Mission</h3>
-                            <p>FWSMUN is Future World School's premier Model United Nations conference, dedicated to fostering diplomatic skills, critical thinking, and global awareness among students. Our conference provides a platform for young leaders to engage with pressing international issues and develop solutions through collaborative debate.</p>
-                            <p>In its second iteration, FWSMUN has grown into one of the region's most respected MUN conferences, attracting delegates from schools across the country. We pride ourselves on maintaining the highest standards of academic rigor while creating an inclusive and supportive environment for all participants.</p>
+                            <p>FWSMUN is Future World School's premier Model United Nations conference, dedicated to
+                                fostering diplomatic skills, critical thinking, and global awareness among students. Our
+                                conference provides a platform for young leaders to engage with pressing international
+                                issues and develop solutions through collaborative debate.</p>
+                            <p>In its second iteration, FWSMUN has grown into one of the region's most respected MUN
+                                conferences, attracting delegates from schools across the country. We pride ourselves on
+                                maintaining the highest standards of academic rigor while creating an inclusive and
+                                supportive environment for all participants.</p>
                         </div>
                         <div class="glass-card">
                             <h3>Conference Highlights</h3>
                             <p>✓ 5 diverse committees covering critical global issues</p>
                             <p>✓ Expert chairs and crisis team</p>
-                            <p>✓ Professional secretariat and logistics support</p>                            <p>✓ Awards ceremony recognizing outstanding delegates</p>
+                            <p>✓ Professional secretariat and logistics support</p>
+                            <p>✓ Awards ceremony recognizing outstanding delegates</p>
                             <p>✓ Social events and food stalls</p>
                         </div>
                     </div>
@@ -645,7 +757,8 @@
                                 affected by armed conflict, exploring mechanisms for prevention, protection of
                                 survivors, and ensuring accountability for perpetrators in both conflict and
                                 post-conflict settings.</p>
-                            <a href="https://drive.google.com/file/d/1aoGZxBWOq1UOdz0uk2Zwx1D86fMvFTth/view?usp=drive_link" class="download-btn"target="_blank">📄 Download Study Guide</a>
+                            <a href="https://drive.google.com/file/d/1aoGZxBWOq1UOdz0uk2Zwx1D86fMvFTth/view?usp=drive_link"
+                                class="download-btn" target="_blank">📄 Download Study Guide</a>
                         </div>
 
                         <div class="committee-card">
@@ -656,7 +769,8 @@
                                 complex political landscape as the Ministry of Magic crumbles and the Order of the
                                 Phoenix rises to resist Voldemort's return. Make critical decisions that will shape the
                                 fate of the magical community.</p>
-                            <a href="https://drive.google.com/file/d/11QG_nCQQxFBAA3PcybpUN9DlNMGpn-co/view?usp=drive_link" class="download-btn"target="_blank">📄 Download Study Guide</a>
+                            <a href="https://drive.google.com/file/d/11QG_nCQQxFBAA3PcybpUN9DlNMGpn-co/view?usp=drive_link"
+                                class="download-btn" target="_blank">📄 Download Study Guide</a>
                         </div>
 
                         <div class="committee-card">
@@ -667,7 +781,8 @@
                             <p>The National Assembly will address critical reforms needed in Pakistan's judicial system
                                 and law enforcement agencies, focusing on improving transparency, accountability, and
                                 effectiveness in combating crime while protecting citizens' rights.</p>
-                            <a href="https://drive.google.com/file/d/1vpJOLydswHdRo8WqSIRnpbvB3EO237QU/view?usp=drive_link" class="download-btn"target="_blank">📄 Download Study Guide</a>
+                            <a href="https://drive.google.com/file/d/1vpJOLydswHdRo8WqSIRnpbvB3EO237QU/view?usp=drive_link"
+                                class="download-btn" target="_blank">📄 Download Study Guide</a>
                         </div>
 
                         <div class="committee-card">
@@ -678,7 +793,8 @@
                                 intensifies. Delegates must navigate complex geopolitical interests while addressing
                                 civilian protection, humanitarian access, and potential pathways to peace in this
                                 evolving crisis.</p>
-                            <a href="https://drive.google.com/file/d/1oSkENsj-tl1JR1v5pqw5YaRnMNIsl-8r/view?usp=drive_link" class="download-btn"target="_blank">📄 Download Study Guide</a>
+                            <a href="https://drive.google.com/file/d/1oSkENsj-tl1JR1v5pqw5YaRnMNIsl-8r/view?usp=drive_link"
+                                class="download-btn" target="_blank">📄 Download Study Guide</a>
                         </div>
 
                         <div class="committee-card">
@@ -689,7 +805,8 @@
                             <p>DISEC will address the proliferation of small arms and light weapons, examining current
                                 regulatory frameworks and developing comprehensive strategies to prevent illicit trade,
                                 improve tracking systems, and enhance international cooperation in arms control.</p>
-                            <a href="https://drive.google.com/file/d/1lQK82FvDL5tRr0o-o672_5ryoVbKEfkj/view?usp=sharing" class="download-btn"target="_blank">📄 Download Study Guide</a>
+                            <a href="https://drive.google.com/file/d/1lQK82FvDL5tRr0o-o672_5ryoVbKEfkj/view?usp=sharing"
+                                class="download-btn" target="_blank">📄 Download Study Guide</a>
                         </div>
                     </div>
                 </div>
@@ -708,29 +825,32 @@
                     <div class="glass-card" style="margin-bottom: 30px;">
                         <h3>Delegate Registration</h3>
                         <p><strong>Registration Fee:</strong> 4200 PKR per delegate</p>
-                        <p><strong>Early Bird Deadline:</strong> November 13, 2025 (3800PKR per delegate)</p>
+                        <p><strong>Early Bird Deadline:</strong> November 9, 2025 (3800PKR per delegate)</p>
                         <p><strong>Regular Deadline:</strong> November 19, 2025</p>
                         <br>
                         <p><strong>What's Included:</strong></p>
                         <p>• All committee sessions and materials</p>
                         <p>• Certificate of participation</p>
-                        <p>• Access to social events at a discounted price</p>
+                        <p>• Access to social events</p>
                         <p>• Eligibility for awards and recognition</p>
                         <br>
                         <a href="https://forms.gle/55ierzhGx7dj4H1p9" target="_blank" class="cta-button">Complete
                             Registration Form</a>
                     </div>
-                    
-                    
-                <div class="glass-card">
+
+
+                    <div class="glass-card">
                         <h3>Delegation Registration</h3>
                         <p>A delegation must consist of a minimum of 3 and a maximum of 7 delegates.</p>
                         <br>
                         <p><strong>Fee Details:</strong></p>
-                        <p><strong>Early Bird Phase (Deadline: November 13, 2025)</strong></p>
+                        <p><strong>Early Bird Phase (Deadline: November 9, 2025)</strong></p>
                         <p>Delegation Fee: PKR 4,000</p>
                         <br>
-                        <p><em>For your reference below is the detailed calculation of the total delegation fee according to the number of delegates per delegation. Each delegate is charged a base fee of PKR 3,800, and an additional PKR 4,000 delegation fee is applied to every delegation as a whole.</em></p>
+                        <p><em>For your reference below is the detailed calculation of the total delegation fee
+                                according to the number of delegates per delegation. Each delegate is charged a base fee
+                                of PKR 3,800, and an additional PKR 4,000 delegation fee is applied to every delegation
+                                as a whole.</em></p>
                         <br>
                         <p>• Delegation of 3 – PKR 15,400</p>
                         <p>• Delegation of 4 – PKR 19,200</p>
@@ -740,12 +860,12 @@
                         <br>
                         <a href="https://forms.gle/aUrDSKfrkwdk9RxC9" target="_blank" class="cta-button">Register as
                             Delegation</a>
-                </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- RESOURCES & INFO PAGE -->
+        <!-- RESOURCES N INFO PAGE -->
         <div id="resources-page" class="page" style="display: none;">
             <div class="content-wrapper">
                 <div class="page-content">
@@ -755,54 +875,20 @@
                     </div>
 
                     <h2 class="section-title">Delegate Resources</h2>
-                    
+
                     <div class="glass-card" style="margin-bottom: 40px;">
                         <h3>📚 Essential Documents</h3>
-                        <p><a href="https://drive.google.com/file/d/16hibPzbg-3xnQKfP8OhY-AA5_gtb5r_R/view?usp=sharing" class="download-btn" target="_blank">Rules of Procedure</a></p>
-                        <p><a href="https://drive.google.com/file/d/16IEgYWAIOG3kj5_Wuqo_qzm_ip_HeqRh/view?usp=sharing" class="download-btn" target="_blank">Position Paper Guidelines</a></p>
-                        <p><a href="https://drive.google.com/file/d/12QU5ysHul9jNpyOIZ6gnKEbMCppyRO0m/view?usp=sharing" class="download-btn" target="_blank">Research Tips & Resources</a></p>
-                        
+                        <p><a href="https://drive.google.com/file/d/16hibPzbg-3xnQKfP8OhY-AA5_gtb5r_R/view?usp=sharing"
+                                class="download-btn" target="_blank">Rules of Procedure</a></p>
+                        <p><a href="https://drive.google.com/file/d/16IEgYWAIOG3kj5_Wuqo_qzm_ip_HeqRh/view?usp=sharing"
+                                class="download-btn" target="_blank">Position Paper Guidelines</a></p>
+                        <p><a href="https://drive.google.com/file/d/12QU5ysHul9jNpyOIZ6gnKEbMCppyRO0m/view?usp=sharing"
+                                class="download-btn" target="_blank">Research Tips & Resources</a></p>
+
                     </div>
 
 
                     <h2 class="section-title">Conference Information</h2>
-                    <div class="glass-card" style="margin-bottom: 30px;">
-                        <h3>📍 Venue & Schedule</h3>
-                        <p><strong>Location:</strong> Future World School, Precinct 1 Bahria Town Karachi, Karachi, 75340</p>
-                        <br>
-                        <p><strong>Conference Itinerary:</strong></p>
-                        
-                        
-                        <p><strong>Day One:</strong></p>
-                        <p>• 8:20 AM - 9:30 AM — Registrations</p>
-                        <p>• 9:30 AM - 10:30 AM — Opening Ceremony</p>
-                        <p>• 10:30 AM - 1:30 PM — 1st Committee Session</p>
-                        <p>• 1:30 PM - 2:30 PM — Prayer Break</p>
-                        <p>• 2:30 PM - 3:00 PM — Lunch Break</p>
-                        <p>• 3:00 PM - 5:00 PM — 2nd Committee Session</p>
-                        <br>
-                        
-                        
-                        <p><strong>Day Two:</strong></p>
-                        <p>• 8:00 AM - 9:00 AM — Registrations</p>
-                        <p>• 9:00 AM - 12:00 PM — 3rd Committee Session</p>
-                        <p>• 12:00 PM - 12:30 PM — Tea Break</p>
-                        <p>• 12:30 PM - 2:30 PM — 4th Committee Session</p>
-                        <p>• 2:30 PM - 3:30 PM — Lunch Break</p>
-                        <p>• 3:30 PM - 6:30 PM — 5th Committee Session</p>
-                        <p>• 7:30 PM - 9:30 PM — DJ Night</p>
-                        <br>
-                        
-                        
-                        <p><strong>Day Three:</strong></p>
-                        <p>• 8:00 AM - 9:00 AM — Registrations</p>
-                        <p>• 9:00 AM - 11:00 AM — 6th Committee Session</p>
-                        <p>• 11:00 AM - 11:30 AM — Tea Break</p>
-                        <p>• 11:30 AM - 2:30 PM — 7th Committee Session</p>
-                        <p>• 2:30 PM - 3:00 PM — Lunch Break</p>
-                        <p>• 3:00 PM - 5:00 PM — Closing Ceremony</p>
-                        <p>• 5:00 PM - 8:00 PM — Qawwali Night</p>
-                        </div>
 
                     <div class="glass-card" style="margin-bottom: 30px;">
                         <h3>👔 Dress Code</h3>
@@ -820,7 +906,8 @@
 
                     <div class="glass-card">
                         <h3>📋 Rules & Code of Conduct</h3>
-                        <p>All delegates must adhere to standard UN Rules of Procedure throughout the conference. A comprehensive procedural guide will be provided upon registration.</p>
+                        <p>All delegates must adhere to standard UN Rules of Procedure throughout the conference. A
+                            comprehensive procedural guide will be provided upon registration.</p>
                         <br>
                         <p><strong>Code of Conduct:</strong></p>
                         <p>• Maintain respect and diplomatic decorum at all times</p>
@@ -851,23 +938,32 @@
     </footer>
 
     <script>
-               /*
-        function updateCountdown() {
-            const conferenceDate = new Date('November 21, 2025 09:00:00').getTime();
-            const now = new Date().getTime();
-            const distance = conferenceDate - now;
+        // Credit Popup Functions
+        let creditTimeout;
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        function showCreditPopup() {
+            const popup = document.getElementById('creditPopup');
+            const overlay = document.getElementById('creditOverlay');
 
-            document.getElementById('days').textContent = String(days).padStart(2, '0');
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-        } */
+            popup.classList.add('active');
+            overlay.classList.add('active');
 
+            // Auto-close after 5 seconds
+            clearTimeout(creditTimeout);
+            creditTimeout = setTimeout(() => {
+                closeCreditPopup();
+            }, 5000);
+        }
+
+        function closeCreditPopup() {
+            const popup = document.getElementById('creditPopup');
+            const overlay = document.getElementById('creditOverlay');
+
+            popup.classList.remove('active');
+            overlay.classList.remove('active');
+
+            clearTimeout(creditTimeout);
+        }
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
@@ -879,6 +975,7 @@
 
             document.getElementById(pageName + '-page').style.display = 'block';
 
+            // nav link keliye
             const navLinks = document.querySelectorAll('.nav-links a');
             navLinks.forEach(link => {
                 link.classList.remove('active');
@@ -923,14 +1020,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
